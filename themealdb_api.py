@@ -46,3 +46,6 @@ for meal_id in meal_id_lis:
     meal_dict['ingredients'] = ingredient_and_amounts_str
     meal_lis.append(meal_dict)
 print(meal_lis)
+
+with open('meals.json', 'w') as f:
+    json.dump(meal_lis, f)
