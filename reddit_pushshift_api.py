@@ -9,12 +9,11 @@ comment_lis = []
 for i in range(10):
     before = str(i) + time_frame
     after = str(i + 1) + time_frame
-    url = 'https://api.pushshift.io/reddit/search/comment/?subreddit=recipes&after={}&before={}'.format(after, before)
+    url = 'https://api.pushshift.io/reddit/search/comment/?subreddit=recipes&after={}&before={}&is_submitter=True'.format(after, before)
     data = json.load(urlopen(url))['data']
     for comment_info in data:
         comment_lis.append(comment_info['body'])
 
-    # print(data)
     print(len(data))
 
     time.sleep(3)
