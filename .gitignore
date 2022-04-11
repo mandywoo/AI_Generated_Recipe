@@ -1,1 +1,8 @@
 .ipynb_checkpoints
+recipebox.csv
+.DS_Store
+workspace.code-workspace
+*.pkl
+*.csv
+recipe1m_layers/
+*.npz
