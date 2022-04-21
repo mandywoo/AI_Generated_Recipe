@@ -1,10 +1,6 @@
 import ijson
-
 import csv
-# with open(<path to output_csv>, "wb") as csv_file:
-#         writer = csv.writer(csv_file, delimiter=',')
-#         for line in data:
-#             writer.writerow(line)
+from clean_recipes1m import cleanup_ingredient
 
 with open('recipe1M_layers/layer1.json', "r") as f, open('recipes.csv', 'w') as csv_file:
     writer = csv.writer(csv_file, delimiter=',')
@@ -17,10 +13,20 @@ with open('recipe1M_layers/layer1.json', "r") as f, open('recipes.csv', 'w') as 
         instructions_lis = record['instructions']   # list of steps [{'text': 'Preheat the oven to 350 F. Butter or oil an 8-inch baking dish.'}, {'text': ...]
 
         ingredients = 'Ingredients: '
-        for i, ingredient_dict in enumerate(ingredients_lis, 1):
+        ingredient_num = 1
+        for ingredient_dict in ingredients_lis:
             ingredient = ingredient_dict['text']
-            ingredient_str = str(i) + '. ' + ingredient + ' '
+            if len(ingredient) == 0: 
+                continue
+            # print("INGREDIENT:", ingredient)
+
+            ingredient = cleanup_ingredient(ingredient)
+            print(ingredient)
+
+            ingredient_str = str(ingredient_num) + '. ' + ingredient + ' '
             ingredients += ingredient_str
+
+            ingredient_num += 1
         
         # print(ingredients)
 
