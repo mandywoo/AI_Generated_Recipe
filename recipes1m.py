@@ -34,6 +34,10 @@ with open('recipe1M_layers/layer1.json', "r") as f, open('recipes.csv', 'w') as 
         instructions = 'Instructions: '
         for i, instructions_dict in enumerate(instructions_lis, 1):
             instruction = instructions_dict['text']
+            instruction = cleanup_instruction(instruction)
+            if len(instruction) == 0 or 'note' in instruction.lower():
+                continue
+
             instruction_str = str(i) + '. ' + instruction + ' '
             instructions += instruction_str
 
