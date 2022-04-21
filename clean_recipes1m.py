@@ -36,7 +36,8 @@ def replace_units(processed_ingredient, ingredient):
     'additional required ingredients specified on the gravy and stuffing package instructions', 'additional',
     'storebought', 'deep frying', 'individual', 'all other ingredients are the same as recipe below', 'extra', 'to', 
     'per', 'serving', 'possibly', 'plump', 'slim', 'sheet of reynolds wrap heavy duty aluminum foil', 'thick', 
-    'flat beater', 'dough hook', 'by inch  baking pan', 'baking stone', 'topping', 'matchstick', 'quality', 'very']
+    'flat beater', 'dough hook', 'by inch  baking pan', 'baking stone', 'topping', 'matchstick', 'quality', 'very', 
+    'see', 'note']
 
 
 
@@ -113,20 +114,6 @@ def cleanup_ingredient(ingredient):
 
     return ingredient
 
-clean_ingredients = ["1/2 lb. (225 g) extra-lean ground beef King Sooper's 1 lb For $3.99 thru 02/09", 
-"2 14 teaspoons dry yeast (Can decrease to 1/2t if baking next day.)",
-"15 ounces, weight Canned Black Beans, Rinsed And Drained"]
 
-clean_ingredients = ['1 egg - beaten']
-
-print(re.findall('[0-9 \/-]+', '1  1/2 egg - beaten'))
-
-# for ingredient in clean_ingredients:
-#     clean_ingredient = cleanup_ingredient(ingredient)
-#     print(clean_ingredient)
-
-# ingredient = '1/2 hi-lo hi'
-# # ingredient = replace_units(''.join([char for char in ingredient.lower().strip() if char in ascii_lowercase + ' ']).strip())
-# ingredient = re.sub('[^a-zA-Z]+', ' ', ingredient)
-
-# print(ingredient.strip())
+def cleanup_instruction(instruction):
+    return "".join(re.split("\(|\)|\[|\]", instruction)[::2])

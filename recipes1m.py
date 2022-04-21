@@ -1,6 +1,6 @@
 import ijson
 import csv
-from clean_recipes1m import cleanup_ingredient
+from clean_recipes1m import cleanup_ingredient, cleanup_instruction
 
 with open('recipe1M_layers/layer1.json', "r") as f, open('recipes.csv', 'w') as csv_file:
     writer = csv.writer(csv_file, delimiter=',')
