@@ -6,3 +6,4 @@ workspace.code-workspace
 *.csv
 recipe1m_layers/
 *.npz
+*.txt
