@@ -8,6 +8,15 @@ Files Required:
 - model.bin
 - sample_data.csv : contains 100 sample data points.
 
+It is highly recommended to run the notbook using [Our Colab Environment](https://drive.google.com/file/d/1PemuOf8HNM6vT_GSAkMHKehCeJ01a7nb/view?usp=sharing), this will save you the effort of downloading the following dependencies required to run our model.
+
+How to Download Model.bin:
+
+Option 1:
+- make sure you have git lfs installed 
+- clone the repo and you can use it directly
+
+
 Instructions:
 1. Run **all** the blocks under **"Set Up"**, this includes installing the dependencies at the top. Installing the required dependencies can take around ~1.5 min.
 2. **In "Load Data" section, IF you are using your LOCAL ENVIRONMENT**: if you downloaded all the files in the same structure as it is in github, then you DO NOT need to update the file paths in the first block of "Load Data." Else, please update the paths according to the comments in the notebook. And **skip** the second block under "Load Data."
