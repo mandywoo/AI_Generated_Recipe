@@ -1,25 +1,22 @@
 # AI_Generated_Recipe
 
-## How to Run Notebook
 NOTE: We are using torch with Cuda in our notebook, so please make sure your environment has access to GPU !
 
-Files Required:
+## Files Required to Run Notebook:
 - project.ipynb
-- model.bin
+- model.bin: see instructions below
 - sample_data.csv : contains 100 sample data points.
 
-How to Download Model.bin:
+## How to Download Model.bin:
 
-Option 1:
-- run the notebook directly in [our colab environment](https://drive.google.com/drive/folders/1Lau1ZOw_yaG-LghQd0H5nx2XUa4LsRLd?usp=sharing)
-- this is the Most Recommended Method as it will save you the effort managing possible dependency issues
+*the model.bin is too big to be uploaded on to github and may suffer from corruption when using git lfs, so please follow this instruction to download model.bin*
 
-Option 2:
-- make sure you have git lfs installed 
-- clone the repo and you can use it directly
+1. clone the repo to your local environment
+2. download the [model.bin](https://drive.google.com/file/d/1F7l3BEubcHUMe41H9yhMgzjhjM9b-WGz/view?usp=sharing) from our google drive 
+3. put the model.bin into your cloned repo. It should be in the same directory as the Project.ipynb
 
 
-Notebook Instructions:
+## Notebook Instructions:
 1. Run **all** the blocks under **"Set Up"**, this includes installing the dependencies at the top. Installing the required dependencies can take around ~1.5 min.
 2. **In "Load Data" section, IF you are using your LOCAL ENVIRONMENT**: if you downloaded all the files in the same structure as it is in github, then you DO NOT need to update the file paths in the first block of "Load Data." Else, please update the paths according to the comments in the notebook. And **skip** the second block under "Load Data."
 3. **In "Load Data" section, IF you are using GOOGLE COLAB**: please run the mount to mount your Google Drive by running the second block under "Load Data". You will need to update your file paths accordingly.
@@ -32,7 +29,7 @@ Notebook Instructions:
 10. **In "Generation" section**, there are subsections for different temperature values, you can run a specific subsection or all of the subsections.
 11. **In "Evaluation" section**, if you wish to perfrom evaluation, in the first block, there is a temperature variable, it is set at 1.5 (optimal), you can change it if you wish. Note that it has to be a positive float. Them run all blocks under "Evaluation" section.
 
-## Notebook Contents:
+## Repository Contents:
 - recipe1m directory: Contains python code for gathering data from Recipes1M+ database and code from cleaning data
 - Project.html: html output of model notebook that contains the output for every cell
 - Project.ipynb: Final project notebook, contains dataloading, model training, response generation, and evalution
