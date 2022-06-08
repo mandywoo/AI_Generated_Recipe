@@ -1,6 +1,8 @@
 # AI_Generated_Recipe
 
 ## How to Run Notebook
+NOTE: We are using torch with Cuda in our notebook, so please make sure your environment has access to GPU !
+
 Files Required:
 - project.ipynb
 - model.bin
