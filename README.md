@@ -8,7 +8,7 @@ Files Required:
 - model.bin
 - sample_data.csv : contains 100 sample data points.
 
-It is highly recommended to run the notbook using [Our Colab Environment](https://drive.google.com/file/d/1PemuOf8HNM6vT_GSAkMHKehCeJ01a7nb/view?usp=sharing), this will save you the effort of downloading the following dependencies required to run our model.
+It is highly recommended to run the notbook using [Our Colab Environment](https://drive.google.com/drive/folders/1Lau1ZOw_yaG-LghQd0H5nx2XUa4LsRLd?usp=sharing), this will save you the effort of downloading the following dependencies required to run our model.
 
 How to Download Model.bin:
 
