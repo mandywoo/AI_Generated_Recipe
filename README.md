@@ -23,11 +23,12 @@ Instructions:
 
 ## Notebook Contents:
 - recipe1m directory: Contains python code for gathering data from Recipes1M+ database and code from cleaning data
-- Project.html: html output of model notebook that contains the output for every cell.
-- Project.ipynb: Final project notebook, contains dataloading, model training, response generation, and evalution. 
+- Project.html: html output of model notebook that contains the output for every cell
+- Project.ipynb: Final project notebook, contains dataloading, model training, response generation, and evalution
 - comments_dfs.ipynb: Contains code preview reddit post comments
 - reddit_comments.py: contains code to extract reddit posts and their comments
 - reddit_pushshift_api.py: contains code to set up pushshift to pull data from reddit
 - sample_data: contains 100 sample data points
 - tables.sql: contains SQL code for generating our table
 - visuals.py: contains code for word cloud visual
+- model.bin: final GPT2 model data
