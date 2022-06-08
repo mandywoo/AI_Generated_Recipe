@@ -21,3 +21,13 @@ Instructions:
 10. **In "Generation" section**, there are subsections for different temperature values, you can run a specific subsection or all of the subsections.
 11. **In "Evaluation" section**, if you wish to perfrom evaluation, in the first block, there is a temperature variable, it is set at 1.5 (optimal), you can change it if you wish. Note that it has to be a positive float. Them run all blocks under "Evaluation" section.
 
+## Notebook Contents:
+- recipe1m directory: Contains python code for gathering data from Recipes1M+ database and code from cleaning data
+- Project.html: html output of model notebook that contains the output for every cell.
+- Project.ipynb: Final project notebook, contains dataloading, model training, response generation, and evalution. 
+- comments_dfs.ipynb: Contains code preview reddit post comments
+- reddit_comments.py: contains code to extract reddit posts and their comments
+- reddit_pushshift_api.py: contains code to set up pushshift to pull data from reddit
+- sample_data: contains 100 sample data points
+- tables.sql: contains SQL code for generating our table
+- visuals.py: contains code for word cloud visual
