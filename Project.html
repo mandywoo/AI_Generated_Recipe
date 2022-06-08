@@ -7,7 +7,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
+<script>
+(function() {
+  function addWidgetsRenderer() {
+    var mimeElement = document.querySelector('script[type="application/vnd.jupyter.widget-view+json"]');
+    var scriptElement = document.createElement('script');
+    var widgetRendererSrc = 'https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js';
+    var widgetState;
 
+    // Fallback for older version:
+    try {
+      widgetState = mimeElement && JSON.parse(mimeElement.innerHTML);
+
+      if (widgetState && (widgetState.version_major < 2 || !widgetState.version_major)) {
+        widgetRendererSrc = 'https://unpkg.com/jupyter-js-widgets@*/dist/embed.js';
+      }
+    } catch(e) {}
+
+    scriptElement.src = widgetRendererSrc;
+    document.body.appendChild(scriptElement);
+  }
+
+  document.addEventListener('DOMContentLoaded', addWidgetsRenderer);
+}());
+</script>
 
 <style type="text/css">
     /*!
@@ -13076,7 +13099,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="o">%</span><span class="n">cd</span> <span class="s2">&quot;/content/drive/Shareddrives/STATS 170 TEAM 5/&quot;</span>
@@ -13099,7 +13122,7 @@ div#notebook {
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>/content/drive/Shareddrives/STATS 170 TEAM 5
 [NbConvertApp] Converting notebook GPT2_playground.ipynb to HTML
-[NbConvertApp] Writing 337181 bytes to GPT2_playground.html
+[NbConvertApp] Writing 424857 bytes to GPT2_playground.html
 </pre>
 </div>
 </div>
@@ -13123,7 +13146,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="c1"># install GPT 2 via pip command </span>
@@ -13136,10 +13159,148 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: pip in /usr/local/lib/python3.7/dist-packages (21.1.3)
+Collecting pip
+  Downloading pip-22.1.2-py3-none-any.whl (2.1 MB)
+     |████████████████████████████████| 2.1 MB 8.3 MB/s 
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 21.1.3
+    Uninstalling pip-21.1.3:
+      Successfully uninstalled pip-21.1.3
+Successfully installed pip-22.1.2
+Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Collecting git+https://github.com/huggingface/transformers@main
+  Cloning https://github.com/huggingface/transformers (to revision main) to /tmp/pip-req-build-24ywwnzy
+  Running command git clone --filter=blob:none --quiet https://github.com/huggingface/transformers /tmp/pip-req-build-24ywwnzy
+  Resolved https://github.com/huggingface/transformers to commit 66e8656778392609e1fb769f1a0d0839af3cd76a
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+Collecting tokenizers!=0.11.3,&lt;0.13,&gt;=0.11.1
+  Downloading tokenizers-0.12.1-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (6.6 MB)
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">6.6/6.6 MB</span> <span class="ansi-red-fg">63.4 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+Requirement already satisfied: tqdm&gt;=4.27 in /usr/local/lib/python3.7/dist-packages (from transformers==4.20.0.dev0) (4.64.0)
+Requirement already satisfied: filelock in /usr/local/lib/python3.7/dist-packages (from transformers==4.20.0.dev0) (3.7.0)
+Collecting huggingface-hub&lt;1.0,&gt;=0.1.0
+  Downloading huggingface_hub-0.7.0-py3-none-any.whl (86 kB)
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">86.2/86.2 kB</span> <span class="ansi-red-fg">11.1 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+Requirement already satisfied: numpy&gt;=1.17 in /usr/local/lib/python3.7/dist-packages (from transformers==4.20.0.dev0) (1.21.6)
+Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.7/dist-packages (from transformers==4.20.0.dev0) (2019.12.20)
+Requirement already satisfied: packaging&gt;=20.0 in /usr/local/lib/python3.7/dist-packages (from transformers==4.20.0.dev0) (21.3)
+Requirement already satisfied: importlib-metadata in /usr/local/lib/python3.7/dist-packages (from transformers==4.20.0.dev0) (4.11.4)
+Collecting pyyaml&gt;=5.1
+  Downloading PyYAML-6.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (596 kB)
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">596.3/596.3 kB</span> <span class="ansi-red-fg">49.0 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+Requirement already satisfied: requests in /usr/local/lib/python3.7/dist-packages (from transformers==4.20.0.dev0) (2.23.0)
+Requirement already satisfied: typing-extensions&gt;=3.7.4.3 in /usr/local/lib/python3.7/dist-packages (from huggingface-hub&lt;1.0,&gt;=0.1.0-&gt;transformers==4.20.0.dev0) (4.2.0)
+Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /usr/local/lib/python3.7/dist-packages (from packaging&gt;=20.0-&gt;transformers==4.20.0.dev0) (3.0.9)
+Requirement already satisfied: zipp&gt;=0.5 in /usr/local/lib/python3.7/dist-packages (from importlib-metadata-&gt;transformers==4.20.0.dev0) (3.8.0)
+Requirement already satisfied: chardet&lt;4,&gt;=3.0.2 in /usr/local/lib/python3.7/dist-packages (from requests-&gt;transformers==4.20.0.dev0) (3.0.4)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,&lt;1.26,&gt;=1.21.1 in /usr/local/lib/python3.7/dist-packages (from requests-&gt;transformers==4.20.0.dev0) (1.24.3)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.7/dist-packages (from requests-&gt;transformers==4.20.0.dev0) (2022.5.18.1)
+Requirement already satisfied: idna&lt;3,&gt;=2.5 in /usr/local/lib/python3.7/dist-packages (from requests-&gt;transformers==4.20.0.dev0) (2.10)
+Building wheels for collected packages: transformers
+  Building wheel for transformers (pyproject.toml) ... done
+  Created wheel for transformers: filename=transformers-4.20.0.dev0-py3-none-any.whl size=4370817 sha256=2ab87b6ece117dceee47513a56ed556b9f7193a872e9a7ef63e01006b35f4337
+  Stored in directory: /tmp/pip-ephem-wheel-cache-yvv0p_9i/wheels/81/76/9f/3ddda68e99fe8dc2b82ee31c13776521e341f7c2cc437e6cf4
+Successfully built transformers
+Installing collected packages: tokenizers, pyyaml, huggingface-hub, transformers
+  Attempting uninstall: pyyaml
+    Found existing installation: PyYAML 3.13
+    Uninstalling PyYAML-3.13:
+      Successfully uninstalled PyYAML-3.13
+Successfully installed huggingface-hub-0.7.0 pyyaml-6.0 tokenizers-0.12.1 transformers-4.20.0.dev0
+<span class="ansi-yellow-fg">WARNING: Running pip as the &#39;root&#39; user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv</span><span class="ansi-yellow-fg">
+</span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Collecting git+https://github.com/google-research/bleurt
+  Cloning https://github.com/google-research/bleurt to /tmp/pip-req-build-6jspkksu
+  Running command git clone --filter=blob:none --quiet https://github.com/google-research/bleurt /tmp/pip-req-build-6jspkksu
+  Resolved https://github.com/google-research/bleurt to commit c6f2375c7c178e1480840cf27cb9e2af851394f9
+  Preparing metadata (setup.py) ... done
+Requirement already satisfied: pandas in /usr/local/lib/python3.7/dist-packages (from BLEURT==0.0.2) (1.3.5)
+Requirement already satisfied: numpy in /usr/local/lib/python3.7/dist-packages (from BLEURT==0.0.2) (1.21.6)
+Requirement already satisfied: scipy in /usr/local/lib/python3.7/dist-packages (from BLEURT==0.0.2) (1.4.1)
+Requirement already satisfied: tensorflow in /usr/local/lib/python3.7/dist-packages (from BLEURT==0.0.2) (2.8.2+zzzcolab20220527125636)
+Collecting tf-slim&gt;=1.1
+  Downloading tf_slim-1.1.0-py2.py3-none-any.whl (352 kB)
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">352.1/352.1 kB</span> <span class="ansi-red-fg">12.7 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+Collecting sentencepiece
+  Downloading sentencepiece-0.1.96-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.2 MB)
+     <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">1.2/1.2 MB</span> <span class="ansi-red-fg">53.3 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+Requirement already satisfied: absl-py&gt;=0.2.2 in /usr/local/lib/python3.7/dist-packages (from tf-slim&gt;=1.1-&gt;BLEURT==0.0.2) (1.0.0)
+Requirement already satisfied: pytz&gt;=2017.3 in /usr/local/lib/python3.7/dist-packages (from pandas-&gt;BLEURT==0.0.2) (2022.1)
+Requirement already satisfied: python-dateutil&gt;=2.7.3 in /usr/local/lib/python3.7/dist-packages (from pandas-&gt;BLEURT==0.0.2) (2.8.2)
+Requirement already satisfied: gast&gt;=0.2.1 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (0.5.3)
+Requirement already satisfied: h5py&gt;=2.9.0 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (3.1.0)
+Requirement already satisfied: tensorflow-estimator&lt;2.9,&gt;=2.8 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (2.8.0)
+Requirement already satisfied: libclang&gt;=9.0.1 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (14.0.1)
+Requirement already satisfied: grpcio&lt;2.0,&gt;=1.24.3 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (1.46.3)
+Requirement already satisfied: tensorflow-io-gcs-filesystem&gt;=0.23.1 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (0.26.0)
+Requirement already satisfied: google-pasta&gt;=0.1.1 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (0.2.0)
+Requirement already satisfied: opt-einsum&gt;=2.3.2 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (3.3.0)
+Requirement already satisfied: typing-extensions&gt;=3.6.6 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (4.2.0)
+Requirement already satisfied: tensorboard&lt;2.9,&gt;=2.8 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (2.8.0)
+Requirement already satisfied: flatbuffers&gt;=1.12 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (2.0)
+Requirement already satisfied: astunparse&gt;=1.6.0 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (1.6.3)
+Requirement already satisfied: six&gt;=1.12.0 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (1.15.0)
+Requirement already satisfied: keras&lt;2.9,&gt;=2.8.0rc0 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (2.8.0)
+Requirement already satisfied: protobuf&lt;3.20,&gt;=3.9.2 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (3.17.3)
+Requirement already satisfied: keras-preprocessing&gt;=1.1.1 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (1.1.2)
+Requirement already satisfied: termcolor&gt;=1.1.0 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (1.1.0)
+Requirement already satisfied: setuptools in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (57.4.0)
+Requirement already satisfied: wrapt&gt;=1.11.0 in /usr/local/lib/python3.7/dist-packages (from tensorflow-&gt;BLEURT==0.0.2) (1.14.1)
+Requirement already satisfied: wheel&lt;1.0,&gt;=0.23.0 in /usr/local/lib/python3.7/dist-packages (from astunparse&gt;=1.6.0-&gt;tensorflow-&gt;BLEURT==0.0.2) (0.37.1)
+Requirement already satisfied: cached-property in /usr/local/lib/python3.7/dist-packages (from h5py&gt;=2.9.0-&gt;tensorflow-&gt;BLEURT==0.0.2) (1.5.2)
+Requirement already satisfied: werkzeug&gt;=0.11.15 in /usr/local/lib/python3.7/dist-packages (from tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (1.0.1)
+Requirement already satisfied: tensorboard-data-server&lt;0.7.0,&gt;=0.6.0 in /usr/local/lib/python3.7/dist-packages (from tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (0.6.1)
+Requirement already satisfied: markdown&gt;=2.6.8 in /usr/local/lib/python3.7/dist-packages (from tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (3.3.7)
+Requirement already satisfied: google-auth-oauthlib&lt;0.5,&gt;=0.4.1 in /usr/local/lib/python3.7/dist-packages (from tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (0.4.6)
+Requirement already satisfied: google-auth&lt;3,&gt;=1.6.3 in /usr/local/lib/python3.7/dist-packages (from tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (1.35.0)
+Requirement already satisfied: requests&lt;3,&gt;=2.21.0 in /usr/local/lib/python3.7/dist-packages (from tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (2.23.0)
+Requirement already satisfied: tensorboard-plugin-wit&gt;=1.6.0 in /usr/local/lib/python3.7/dist-packages (from tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (1.8.1)
+Requirement already satisfied: pyasn1-modules&gt;=0.2.1 in /usr/local/lib/python3.7/dist-packages (from google-auth&lt;3,&gt;=1.6.3-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (0.2.8)
+Requirement already satisfied: rsa&lt;5,&gt;=3.1.4 in /usr/local/lib/python3.7/dist-packages (from google-auth&lt;3,&gt;=1.6.3-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (4.8)
+Requirement already satisfied: cachetools&lt;5.0,&gt;=2.0.0 in /usr/local/lib/python3.7/dist-packages (from google-auth&lt;3,&gt;=1.6.3-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (4.2.4)
+Requirement already satisfied: requests-oauthlib&gt;=0.7.0 in /usr/local/lib/python3.7/dist-packages (from google-auth-oauthlib&lt;0.5,&gt;=0.4.1-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (1.3.1)
+Requirement already satisfied: importlib-metadata&gt;=4.4 in /usr/local/lib/python3.7/dist-packages (from markdown&gt;=2.6.8-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (4.11.4)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,&lt;1.26,&gt;=1.21.1 in /usr/local/lib/python3.7/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (1.24.3)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.7/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (2022.5.18.1)
+Requirement already satisfied: idna&lt;3,&gt;=2.5 in /usr/local/lib/python3.7/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (2.10)
+Requirement already satisfied: chardet&lt;4,&gt;=3.0.2 in /usr/local/lib/python3.7/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (3.0.4)
+Requirement already satisfied: zipp&gt;=0.5 in /usr/local/lib/python3.7/dist-packages (from importlib-metadata&gt;=4.4-&gt;markdown&gt;=2.6.8-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (3.8.0)
+Requirement already satisfied: pyasn1&lt;0.5.0,&gt;=0.4.6 in /usr/local/lib/python3.7/dist-packages (from pyasn1-modules&gt;=0.2.1-&gt;google-auth&lt;3,&gt;=1.6.3-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (0.4.8)
+Requirement already satisfied: oauthlib&gt;=3.0.0 in /usr/local/lib/python3.7/dist-packages (from requests-oauthlib&gt;=0.7.0-&gt;google-auth-oauthlib&lt;0.5,&gt;=0.4.1-&gt;tensorboard&lt;2.9,&gt;=2.8-&gt;tensorflow-&gt;BLEURT==0.0.2) (3.2.0)
+Building wheels for collected packages: BLEURT
+  Building wheel for BLEURT (setup.py) ... done
+  Created wheel for BLEURT: filename=BLEURT-0.0.2-py3-none-any.whl size=16456761 sha256=f196f10b6d822bd328bc96751f8be304600c0214b523c398f879788b205acf63
+  Stored in directory: /tmp/pip-ephem-wheel-cache-r3amyh7_/wheels/76/7f/59/d2985fb042c0ee114cbac8d7ec0e10211cd31b59f6bb907514
+Successfully built BLEURT
+Installing collected packages: sentencepiece, tf-slim, BLEURT
+Successfully installed BLEURT-0.0.2 sentencepiece-0.1.96 tf-slim-1.1.0
+<span class="ansi-yellow-fg">WARNING: Running pip as the &#39;root&#39; user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv</span><span class="ansi-yellow-fg">
+</span></pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="c1"># imports</span>
@@ -13163,7 +13324,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="n">DEBUG</span>           <span class="o">=</span> <span class="kc">False</span>
@@ -13201,7 +13362,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">SETSEED</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
@@ -13231,7 +13392,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="c1"># path to data file</span>
@@ -13240,10 +13401,10 @@ div#notebook {
 <span class="c1"># path to model, &#39;None&#39; if there is no model or you would like to train new model</span>
 <span class="n">MODEL_PATH</span> <span class="o">=</span> <span class="s1">&#39;/content/drive/Shareddrives/STATS 170 TEAM 5/model.bin&#39;</span>
 
-<span class="c1"># directory to save model in</span>
+<span class="c1"># DIRECTORY to save model in (you don&#39;t have to change this unless you want to train model)</span>
 <span class="n">SAVE_MODEL_DIR</span> <span class="o">=</span> <span class="s1">&#39;/content/drive/Shareddrives/STATS 170 TEAM 5/&#39;</span>
 
-<span class="c1"># directory to save generated data in</span>
+<span class="c1"># DIRECTORY to save generated data in (you don&#39;t have to change this unless you want to save generated results)</span>
 <span class="n">SAVE_DATA_DIR</span> <span class="o">=</span> <span class="s1">&#39;/content/drive/Shareddrives/STATS 170 TEAM 5/&#39;</span>
 </pre></div>
 
@@ -13254,7 +13415,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="c1"># Mount google drive if using colab, else skip</span>
@@ -13276,7 +13437,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount(&#34;/content/drive&#34;, force_remount=True).
+<pre>Mounted at /content/drive
 </pre>
 </div>
 </div>
@@ -13287,7 +13448,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">)</span>
@@ -13301,7 +13462,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="k">class</span> <span class="nc">RecipeDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
@@ -13339,7 +13500,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">get_tokenier</span><span class="p">(</span><span class="n">special_tokens</span><span class="p">):</span>
@@ -13382,7 +13543,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">get_tokenier</span><span class="p">(</span><span class="n">SPECIAL_TOKENS</span><span class="p">)</span>
@@ -13396,6 +13557,123 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="c10ba4e7-9fea-458b-91c6-0c56808d87a7"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#c10ba4e7-9fea-458b-91c6-0c56808d87a7');
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "a88bb993662a4160be326586fce04624"}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="dc65191a-0759-4256-af40-fe3626a1cabf"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#dc65191a-0759-4256-af40-fe3626a1cabf');
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "b350b94ef5304a7bb4f4c393707c6b87"}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="c75b977e-49ae-4e41-bfc1-453cba7a7eaa"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#c75b977e-49ae-4e41-bfc1-453cba7a7eaa');
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "97f7cf610c204f15b20c1a9c718c221e"}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="2652e9a8-0cd8-443c-bac8-44f54d6788a2"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#2652e9a8-0cd8-443c-bac8-44f54d6788a2');
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "5387611220e64f6ea5510c1ba4f6859f"}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="4bfa867a-5167-4399-aac5-a092fdd81657"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#4bfa867a-5167-4399-aac5-a092fdd81657');
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "c5938947e42c4a808f9aff9a8ed3c6aa"}
+</script>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13406,7 +13684,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="n">train_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">*</span><span class="n">TRAIN_SIZE</span><span class="p">),</span> <span class="p">:]</span>
@@ -13428,7 +13706,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[27]:</div>
+    <div class="prompt output_prompt">Out[&nbsp;]:</div>
 
 
 
@@ -13445,7 +13723,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span>
@@ -13598,7 +13876,7 @@ Special tokens file saved in /content/special_tokens_map.json
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="s1">&#39;TEST-model.bin&#39;</span>
@@ -13620,7 +13898,7 @@ Special tokens file saved in /content/special_tokens_map.json
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="c1">#ingredient = list(data[&#39;ingredients&#39;])[0]</span>
@@ -13640,9 +13918,16 @@ Special tokens file saved in /content/special_tokens_map.json
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Optimal-Temperature:-Best-Results">Optimal Temperature: Best Results<a class="anchor-link" href="#Optimal-Temperature:-Best-Results">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="n">sample_outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">generated</span><span class="p">,</span> 
@@ -13664,7 +13949,7 @@ Special tokens file saved in /content/special_tokens_map.json
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample_output</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_outputs</span><span class="p">):</span>
@@ -13722,18 +14007,245 @@ Instructions: 1. Combine the first four ingredients in a bowl. 2. Beat in the eg
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Generate-Validation-Dataframe">Generate Validation Dataframe<a class="anchor-link" href="#Generate-Validation-Dataframe">&#182;</a></h1>
+<h3 id="Low-Temperature:-High-Bias">Low Temperature: High Bias<a class="anchor-link" href="#Low-Temperature:-High-Bias">&#182;</a></h3><p>All the generated results will look very similar to each other if not completely identical</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">sample_outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">generated</span><span class="p">,</span> 
+                                <span class="n">do_sample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>   
+                                <span class="n">min_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> 
+                                <span class="n">max_length</span><span class="o">=</span><span class="n">MAXLEN</span><span class="p">,</span>
+                                <span class="n">top_k</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>                                 
+                                <span class="n">top_p</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>        
+                                <span class="n">temperature</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                                <span class="n">repetition_penalty</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                                <span class="n">num_return_sequences</span><span class="o">=</span><span class="mi">10</span>
+                                <span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample_output</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_outputs</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">sample_output</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;Instructions:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Instructions:&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;Instructions:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Ingredients: 1. 2 pound of beef 2. 1 cup of water 3. 1 cup of coffee 4. 1 cup of cream 5. 1 tablespoon of salt 6. 2 tablespoon of sugar 7. 2 cup of cheese 8. 1 onion 9. 1 cup of flour
+----------
+
+Instructions: 1. Brown the ground beef in a skillet. 2. Add the water, coffee, cream, salt, sugar, and cheese. 3. Simmer for 20 minutes. 4. Add the onion and cook for another 10 minutes. 5. Add the flour and cook for 5 minutes. 6. Serve with mashed potatoes. 
+
+Instructions: 1. Brown the ground beef in a skillet. 2. Add the water, coffee, cream, salt, sugar, and cheese. 3. Simmer for 20 minutes. 4. Add the onion and cook for another 10 minutes. 5. Add the flour and cook for another 10 minutes. 6. Serve with mashed potatoes. 
+
+Instructions: 1. Brown the ground beef in a skillet. 2. Add the water, coffee, cream, salt, sugar, and cheese. 3. Simmer for 20 minutes. 4. Add the onion and cook for another 10 minutes. 5. Add the flour and cook for 5 minutes. 6. Serve with mashed potatoes. 
+
+Instructions: 1. Brown the ground beef in a skillet. 2. Add the water, coffee, cream, salt, sugar, and cheese. 3. Simmer for 20 minutes. 4. Add the onion and cook for another 10 minutes. 5. Add the flour and cook for 5 minutes. 6. Serve with mashed potatoes. 
+
+Instructions: 1. Brown the ground beef in a skillet. 2. Add the water, coffee, cream, salt, sugar, and cheese. 3. Simmer for 20 minutes. 4. Add the onion and cook for another 10 minutes. 5. Add the flour and cook for 5 minutes. 6. Serve with mashed potatoes. 
+
+Instructions: 1. Brown the ground beef in a skillet. 2. Add the water, coffee, cream, salt, sugar, and cheese. 3. Simmer for 20 minutes. 4. Add the onion and cook for another 10 minutes. 5. Add the flour and cook for another 5 minutes. 6. Serve with mashed potatoes. 
+
+Instructions: 1. Brown the ground beef in a skillet. 2. Add the water, coffee, cream, salt, sugar, and cheese. 3. Simmer for 20 minutes. 4. Add the onion and cook for another 10 minutes. 5. Add the flour and cook for 5 minutes. 6. Serve with mashed potatoes. 
+
+Instructions: 1. Brown the ground beef in a skillet. 2. Add the water, coffee, cream, salt, sugar, and cheese. 3. Simmer for 20 minutes. 4. Add the onion and cook for another 10 minutes. 5. Add the flour and cook for another 10 minutes. 6. Serve with mashed potatoes. 
+
+Instructions: 1. Brown the ground beef in a skillet. 2. Add the water, coffee, cream, salt, sugar, and cheese. 3. Simmer for 20 minutes. 4. Add the onion and cook for another 10 minutes. 5. Add the flour and cook for 5 minutes. 6. Serve with mashed potatoes. 
+
+Instructions: 1. Brown the ground beef in a skillet. 2. Add the water, coffee, cream, salt, sugar, and cheese. 3. Simmer for 20 minutes. 4. Add the onion and cook for another 10 minutes. 5. Add the flour and cook for 5 minutes. 6. Serve with mashed potatoes. 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="High-Temperature:-High-Variance">High Temperature: High Variance<a class="anchor-link" href="#High-Temperature:-High-Variance">&#182;</a></h3><p>starts to use ingreidents out side of input; loses structure</p>
+<p>emm... Don't try this at home</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">sample_outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">generated</span><span class="p">,</span> 
+                                <span class="n">do_sample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>   
+                                <span class="n">min_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> 
+                                <span class="n">max_length</span><span class="o">=</span><span class="n">MAXLEN</span><span class="p">,</span>
+                                <span class="n">top_k</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>                                 
+                                <span class="n">top_p</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>        
+                                <span class="n">temperature</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+                                <span class="n">repetition_penalty</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                                <span class="n">num_return_sequences</span><span class="o">=</span><span class="mi">10</span>
+                                <span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample_output</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_outputs</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">sample_output</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;Instructions:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Instructions:&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;Instructions:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Ingredients: 1. 2 pound of beef 2. 1 cup of water 3. 1 cup of coffee 4. 1 cup of cream 5. 1 tablespoon of salt 6. 2 tablespoon of sugar 7. 2 cup of cheese 8. 1 onion 9. 1 cup of flour
+----------
+
+Instructions: 1. Combine first 6 ingredients. 2. Roll meat in flour, brown. 3. Remove and repeat. 4. Pour boiling water over all, mix well, and simmer 15 minute Put on wax paper or wax paper lined baking sheet, and freeze 1 to 1 1/2 months. 
+
+Instructions: 1. Put beef and water in crock pot 2. Mix sugar, salt, sugar and cornstarch in bowl. 3. Add beef mixture and stir until smooth. 4. Layer crockpot with cheese layer, beef mix with onion and then with flour mixture in same manner. 5. Cook for 6 hours on Low. 6. Stir before serving, top with additional grated cheese. 
+
+Instructions: 1. Brown hamburger in butter. 2. Stir in water. 3. Simmer till the sauce thickens. 4. Then add coffee. 5. Combine salt and 1 T sugar, bring to boil then stir into thickening sauce, stir in onions. 6. Put a thin layer of flour in each cup to hold shape, then cover with cheese and hamburger mixture to make a top for gravy later. 
+
+Instructions: 1. Mix first 4 ingredients and form 1-1/2&#34; meatloaf mix into loaf. 2. Bake at 375 degrees F for 40 min. 3. Remove from oven, slice thinly, spread sauce over the meatloaf slices. 4. Sprinkle top of meatloaf w/ cheese and cover with sliced onion. 5. Combine dry ingredients  then slowly drizzle on top of meatloaf. 6. Cover w/ foil  and simmer for 40 min. 7. Add shredded cheese and continue baking until cheese melts and sauce is bubbly and slightly thickened -- about 30 minutes longer for larger loaves. 
+
+Instructions: 1. Saute onion. 2. Put meat in bottom of casserole. 3. In separate pan mix the 2 cup of water and cream then stir till sugar and cinnamon dissolved. 4. Add coffee and 1 tsp of sugar. 5. Stir until the liquid starts bubbling up, cover and simmer till meat is almost completely tender - about 25 minutes - stirring and cooking occasionally. 6. About 30 minute Before serving add 1 Tsp of salt. 7. Stir 1/4 cup of cheese in and let cool for 5 minute - and add 1 cup  8. Stir until cheese melts. 9. Spread evenly on top of roast and finish with 1 cup  of coffee and cream, adding the rest to the top with your favorite topping. 10. Serves 7 people. 
+
+Instructions: 1. In a large pot put ground beef, 1 cup of water and 3 cup of coffee. 2. Cook on medium-low heat. 3. This will take about 30-45 minutes. 4. After the 15 minute pot roast is tender and no pink liquid remains, remove it from the pot and reserve. 5. Pour in the liquid removed roasting beef into an 8&#34; casserole dish. 6. If necessary cover entire dish with aluminum foil to prevent burning during the liquid and deglaze. 7. Mix together the cream with salt and sugar and sprinkle evenly over roasting. 8. Cover the pan with the lid of your crockpot on medium and simmer for 6-8 hours stirring every 20-30 hours. 9. Add chopped onions. 10. Blend in 1 cup of grated cheese. 11. Place roaster into fridge for 24 hours. 12. In a large frying pan over medium heat, brown the onions in remaining 3 tbsp of coffee and brown a little on the sides of the pan. 13. Once cooled remove onions and set aside. 14. Preheat oven to 350 degrees. 15. Remove the cover for the top. 16. Place the shredded cheeses into the bottom of the frying pan. 17. Cover with aluminum foil, and top with roast and onions mixture. 18. Pour the hot liquid over all. 19. Place on top of the roast/onion mix  or just in the pan. 20. Bake until hot and bubbly at 350F  20 minutes. 21. Remove cover and return to the oven for a short additional 10-15 minute. 
+
+Instructions: 1. Brown hamburger with sugar, salt, and cinnamon; drain and add remaining ingrediants. 2. Add more spices if need be. 3. Cook on stove or on crockpot until meat is done. 4. When meat and water are bubbly  serve. 
+
+Instructions: 1. Sautee onion and garlic in shortening for a few minutes on medium heat in a skillet 2. Put aside the cooked meat and mix the rest into the browning flour 
+
+Instructions: 1. Place ground beef, sugar, water, and coffee in crock pot, and cover with cover, cooking at low setting 8 to 10 hrs, turning crock pot to keep hot during the last 15 min to hour if the water does not evaporate during the last hour. 2. Mix soup ingredients well, return hot beef mixture to crock pot. 3. Add remaining cheese, and cover; stir until melted, approximately 3-4 additional minutes. 4. Transfer meat mix to an airtight container or crock pot lid to cool slightly. 5. Add sliced onions. 6. If using onion for the filling make an additional cup and cover, allowing excess cheese to evaporate. 7. Stir well. 8. Serve in mugs along with cheese. 9. Enjoy! 
+
+Instructions: 1. Add all dry ingredients to slow cooker. 2. Cover. 3. Cook on low for 10 to 12 hours. 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="VERY-High-Temperature:-No,-seriously,-don't-try-this-at-home.">VERY High Temperature: No, seriously, don't try this at home.<a class="anchor-link" href="#VERY-High-Temperature:-No,-seriously,-don't-try-this-at-home.">&#182;</a></h3><p>starts to lose even the basic structure of having "Instructions" infront. Completely insensible output, does not have an association with prompt</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">sample_outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">generated</span><span class="p">,</span> 
+                                <span class="n">do_sample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>   
+                                <span class="n">min_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> 
+                                <span class="n">max_length</span><span class="o">=</span><span class="n">MAXLEN</span><span class="p">,</span>
+                                <span class="n">top_k</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>                                 
+                                <span class="n">top_p</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>        
+                                <span class="n">temperature</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+                                <span class="n">repetition_penalty</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                                <span class="n">num_return_sequences</span><span class="o">=</span><span class="mi">10</span>
+                                <span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample_output</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_outputs</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">sample_output</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="n">ingredient</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">ingredient</span><span class="p">):],</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Ingredients: 1. 2 pound of beef 2. 1 cup of water 3. 1 cup of coffee 4. 1 cup of cream 5. 1 tablespoon of salt 6. 2 tablespoon of sugar 7. 2 cup of cheese 8. 1 onion 9. 1 cup of flour
+----------
+
+ salt water dred the beef 9 pound flour salt all 10 urchkins roll up and tie the roast 12 slices day rolling 12 slices cheese and onions roll 1 egg white and 1 slice each fresh the chowder beef or turkey 9 pounds all season the rolls season flour seal seal well cut butter 10 1 cup oil deep the can fill 3x5 3 quart line fill center and rim 1 or 2 3/50 inch full make cup the pan fill holes 2 fill center and add fill 2 cover  cover oil 2 to 350 utes 9 or 12 hours if not serving over meat heat deep 12 1 x 25 cup flour dred ds water 15 x 12 rolls bread ices pre make bread holes 2 fill tops add fill the meatballs fill out the chuggets wrap cheese cut rolls slice iced in a deep hot pot to the center hole make cup and top fill them place slices put water over filling add some butter seal lid seal lid cover pot and bake on 275 to 400 or untin middle untout brown at middle turn oven side way heat butter and drippings over all fill pan add egg, sugar urchkins take small piece for cheese add meat on chips sprinkle some dry parsher and place pieces of egg yummy on flour tb holes. 7 or just any leftovers cook 20 minutes. check for meat if serving ichips may dry off top may not be served in the refrigerator to bake  
+
+ 9 inch cornstarch thins cereal rips heavy biscuits with poupin baking pam machine and cut squares from biscuits dough out or cut into biscure form or form as needed, about 15 inch slices  1 2 pound  beef rind 2 3 inch thick rounds; brown griss-toote and sprinkle wencks well in warm grease and keep aside 9 inches pastry, thumped together the flour dredges well on all surfaces. 15 to 25 pieces  Roll up one corner, and pleases nicely.Take off wax or papster paper and grease bottom grate or grills, leaving 2 small patter at bottom;place filling, 1 short length sides inward ;turn carefully under pressure to coat lightly in the fat or the butter mix 11 1 or 16 times in the first, leaving 1 in left edge 12 to 18 as possible 17 inch opening for the second and 9 in middle positions or 18 - 18 slices overhang filling at top center;turn, bakinet fashion.Remove bread from grill.of grease with rolling stick,sting lightly under steam,pile in 2 Tbsp flour and 2 Cn water mixing gently into well and arrange half slices under top;pile over second long end, and pinch over the edge so which some edge sticks away at side.Beat until ready To grill. 18. Cut corn bread or dough slabs with serrated edge making small slices to your satisfaction,.then roll and cut slices on toasted side till almost covered by bread/water-wrap in cling film,pierce or twist a pastry string to open packet.with scissors if required to open ;in the same container the next morning,cover;let dry at room* 24 to36 or possibly 15 Min&#39;s for 10 minute,and let stand a half- Day before Preh while you do this as required by instructions - On greased grid over coamer - if grillin roodlough,diameter 2&#34;-16&#34;.peanut butter cups -- 9/13 - 18  For every 1 lb., place beef ridge onto 2 greasted sheets pan,bone on 2;top 1 1 pice on second ;let stand in pan an additional 25 or possibly till you wilt 18 min. 19. To fry meat,place on a large preHEASY-GREGATE or SCUF, plastic  frying surface -- 1 2oz,1&#34; thick on bottom&#34; or 5 - 20 inches from very very near edge of steer  ;roll,segment with fork - 1 lb.,turn once.then make sure that bottom or middle slices is slightly moist &amp; but a freey coating;remove from heat, &amp; secure tightlywith a couple of sladings -- seal -- ;set the wredgs on foil in a cold room&amp; keep in refrigerator up until the faucet of fire appears --&amp; set it in refr -- and leave a side as in above, with lid &amp; oven up &amp; set off -- ;use meat thermoclete which reads 140 on meat lbg to measure -- for 1 pound - 12 lb.and measure--for beef,set in refrigerator 10 hour &amp; place under refrigerator to continue warming-- ;and remember when meat cooks it gets cold sufficient,place slices under heavy duty of both cloth -- if beef and rice is soft &amp; crumly,fold under a table knife so which you make diagonal incents in one section - make several vertical incantoles in opposite corner to center for center pieces and cut out two 
+
+ 9. 12 ounces cream filled mochin creng cereal bowls cereal I do prefer homemade because there the extra milk gives better results.. I prefer homemade which I don but have added eggs I believe they have much of their raw color to mine...but it just brings down taste buds, also add coffee on high as 1-8 added eggs cause more milk and not whole coffee is much tastoser  and you may use up and half of your eggs  
+
+1 package instant butzer rouille 11 2 stick pans, I needed a 7 quart square Instructants----------- --------------- FIRST of all add to crock on to 2. mix 1 1 pound salt, pepper 3 tablespoons 1 Tablespot and 2 tablespoon pepper.Turn on crock at high setting while you are waiting 2 pound ground and cook your onions for 8 min per 1 pint can or up 5 minute add milk bring mix into a medium boil for 6min at 350 add sugar then remove meat and onions. 4 while meat &amp; butter timer  has started you must slowly get this into boiling pan and boil water down by 80 on temp and cook on timer on highest until water in the mixture starts dying off cook the 2cup slowly turn into thickened milk or cream 5 if thick add 1T melted shortcrank butter, then flour mix until moist to your taste do not lump chunks of flour and butter stir constantly with whisk for 10min to prevent from bubbles turn onto cutting knife  cut up french onion in halves and cut french slice from each corner so I was pretty sure not half that big I cooked about 9 inch and it turned my filling into this hole add cheese and mix to moist.then remove cooked to serving plate spread a 1 gallon bag with gravy you should end with mashed potatoes then you are basically serving in big ring or bowl with butter then add in any extras like a fried past roll on it and your go get some noodles, i served my mashed mashed but left over and it would suck as can  with potatoes but not for soup,i made this for gravy too Shipped i hope ur not too lazy :/Shugf/Straze together :-G.S :~  
+
+ 1 quart half fat half ips heavy whipping with cinnamon spices, worchugol or other spice poultt  2 eggs mixed 3 pints milk 9. corn flakes salt water desired gliders melted sugar Instructions 1. Chop enough finely the onion and celery for making a layer in top left hand side 13&#34; cake mold.Rub the fat into and place all other mincemeat ingrd remaining fat 2 inches into a heavy 3. deep  kettle on to make it lighter in weight.Cook meat  5+ 1st 5lbs 4hours, until all pieces begin peating around.Take of pot after 25-30 mins to soak  the milk in so which no one sees scorched milk or foam.Bring it water &amp; water with flour  with 1 pint,add whipping. 2 mins later  Add cheese 1 quart more  Cook 10 Minutes in boiling salar,then cover with double layer water in baking mold,do Not Add Moir until almost firm.Bring mixture and cheese to room,till cheese  turns darken a dark chocolate brown on both layers 3 4-24 hr,i prefer an iron cooker 5 minutes 8 or 15 - after 10 hr take top plate of granny foil out and cut through mounds out  with back side to face a little cold,decrisping in plate of cool egg for a dunk in bowl or bottle add sugar as required  
+
+ 16 18 teaspoon pap pie spice ix flour 10 21 cup white chips 23 24 10 drops of green dye orate 24 1.1 bags miniature Mop mopes with m&amp;pes mixed in 25 tips ers 26. 1 1 cup brown chips 27 liquid 8 inch graingers with fruit sticks, crotted entsrue butter crack sticks, and cinnamon urch ips and spice crotons can yield a lot. 8 cupfuls may get messy -- or you do well and will often end up with them flat. 17 18  and no stickiness in them at Allston Farm.&#39;s homemade coffee ice crequers can also give it additional flavor if a viewer isn&#39;,ttooto you didn&#39;t know?!&#39; 20 To assemble sandwiches use a deep metal plate, but remember they are a really special cake. My family does and loves bears in ours, the old guard made by our dog was just good but I can also say I don&#39; need it. 22 The butcher had already replaced it; we need just a touch left at this stage; it still works fine as always with homemade steaks on sandwiches. &#39;Taco&#39; or any creaming sandwich that you make - go around eating it just a few people. &#39;Top your favorite items by pouring one side out on cheese of another can of Mops. 27 and the same way with any crecvre frosty sandwich, place about four small individual or four Mop pods inside a sandwich - make another one. 28 29&#39; top the moped bits, mosepicks and driy cheese together and roll or pull the bottom of half roll closed. 29&#39; wrap like candy corn by wrapping both side; remove when it&#39;s done with all other M Oaters!* and the end by inserting tooth spumbs under and off each Moom or Cheese. or place the other two &#34;side up - fold top, open ends together, open. 15  and secure &#39;wads to touch&#39; in pan using the waxpats; then roll the Mopa together or press it in to get some shape.Tacom is actually an immersion dixie or creami so the Mox will melt quickly but thats really what i will take until ready to serve ; 30. also can substitute pared green zing. 21. My children can usually buy some at farmers store and run in water for $25 a bottle! 22 miracle beaters  with cannel, spice crumble or spice mix or chop the amount that they would find was better - these ones will last the first night they take for the bottle &amp; they can double ; or some smaller packages can probably do better - also buy an 8 quart pan to put &#39;another scoop into, open, open.and go in a picnic if it doesn., also, I&#39;ve made a pretty batch - and now I just let folks cut up how else they liked them when my kid met her in Texas in eighth to learn them were actually made -- excellent coffee crack butter urchased to prevent string problems if possible-use just a knife as your guide when selecting&#39; tools: food dehydric plate-a can hold two different things: water, hot/unsweetend/hot/low moisture items. 3 c, dehydrated or oil ; a little cinnamon for those in touch &amp; a few fresh apples to toss it in the frost. 4 5 - mix a bunch  of dry fruits if they&#39;ve aged awhile or have been pressed lightly with cinnamon-rub, some water and a few T&#39;s 
+
+Instructional Time : 2 minutes or so.In order I feed people:1: Add your diced ground or canned or sliced or canned  hambood. 2 pairs: ground and shredded beef - thin.Spread meat/cheese on each plate with the bottom part.then top the burger  using 2 slices at once.Spread with any condiment left over in sauce cup.I also recommend an aluminum cake tumbleneck to make rolling it around this time of putting the meat &#34;flattient&#34;.Take one onion and slice a cup thin.And that little thinly and fry until it gives the bread an extra colorand look awesome with this step to step.Using the sides only work a pretty much until the sides do feel slightly weak to press.Turn your burger out in the cake  placing each portion so they will lay flat  Do this with other sliced slices and also place it next and third slice as final assembly, lay side-down nextto the meat and add two cheesees.then put in at each sandwich spot on top or you put a sandwich together on each cookie rack that runs over end-finest ;you don&#39;t want to eat one with each &#34;lick &#34;.I use some paper nap roll pans in that cases.Enjoy this meal or its really tasty and serves over hot biscuits for adults only as long, does work.You want these nice, soft appetizers on their last and will still fall down with them -- Enjoy with toast points, if thats too stiff  you just toss flour into them before using your eggs, but if you use yrexin it wont cook,so make sure it isn&#39;t touching : 2 - It doesnt get quite that way and wont keep its lovely but kinda hard on one edge to hold shape in your bread -- &#34;I eat when all is ready &#34;.Do it to have that awesome* smell on both bottom  and both bottom as a mouth-set aside :.then keep at a cool-down place  - I used 3 and 10 lbs, both larger or smaller ; I do the heavy lifting by about 45- 60 &#34; in long, then lift my eggs up quickly, making two long and thin, &#34; Lift and move on cutting with &#34;hand &#34;.You do need something bigger for slicing - you just don&#39;t want it any size in your whole family, they do hold a shine  if its cold in my book and there ever is that faint spot you can make my sandwiches on a flat baking tin with butter and all those good qualities to all these purposes :.Shown these same night or in a pretty good store, in case they fail- :, : in order the hambo: add the following, stirring frequently to get your mixture into pebTHIN  flour: stir only until its the bottom is evenly seasoned, the larger the longer; mix in, as this is only the slightest flacculent.Take 2 of 1&#34; sliced, finely crumled bread - spread about 2&#34; on the inside with butter - it needs only occasional stir.Next slice a few, one thick slice -- cut 2 more or you want that extra &#34;plain&#34; bread  about to get &#34;dressed&#34;, as the middle has a &#34;tin and you won ;&#34;.  - add that slices 1 thinner one and half &#34;large&#34;, a small slice a whole; do you still do a big part for your other sandwich!Mold out, wrap individually.of course I would be doing one in your hand with plastic as best I haVE a good piece!of 
+
+ 1 can 15 10 11 tablespoons oil salt 8 9x 9x 9 baking sheet entsarch  
+
+1 eggs 12 teaspoon vanilla 9 eggs yitol dissolved 11 1 12 inch ix 8 cup cream cheese sift confeder cream butter melted butter its french Buttercream 13:. 9 slices eggnaro 14 1 1.6 box corn bread crumpled 20 pound sardines 10 minute 16th rolls warm entswipe damp clean towels ----------------. 17 millilitrate flour 1 teaspoons dry sesame seeds dry cream and sugar add the melted mixture a tsp vanilla to a cup mix corn meal 1 tsp confection salt 18. add salt, butterflied vegetables and flour mixing till you can form them but do a minimum use more cornstainer and silding, mix is fine use enough corn staining if you use more corn flour 20 cp heavy milk whisk the beef. when fully incorporate incorporate let boil  add milk cook on top add coffee keep hot for 15 min and stir and heat and remove. 31/remove any vegtir the mixture drippings need water. 12 1 eggs for frost or butter the eggs with one cup softened whip all together adding enough crema not more than 1 c sugar until stiff.on wax.or s tissue the mixture is ready roll to put but still spread a little butter between the two.do little to seal it then with pastry spatio wrap in parchment form for hanging or foil place over greasing and bake  
+
+ 6 biscuits or round pie pan 11 x 2 inch square or 1 3 8 3 9 3inch baked 11 inch tart baking  
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Evaluation">Evaluation<a class="anchor-link" href="#Evaluation">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="n">SAVE_DATA_FILE_NAME</span> <span class="o">=</span> <span class="s1">&#39;validation_data.csv&#39;</span>
 <span class="n">test_data</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span> 
 <span class="n">validation_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;truth&quot;</span><span class="p">,</span> <span class="s2">&quot;prediction&quot;</span><span class="p">])</span>
+<span class="n">TEMPERATURE</span> <span class="o">=</span> <span class="mf">1.5</span>
 </pre></div>
 
     </div>
@@ -13743,7 +14255,7 @@ Instructions: 1. Combine the first four ingredients in a bowl. 2. Beat in the eg
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">test_data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
@@ -13761,7 +14273,7 @@ Instructions: 1. Combine the first four ingredients in a bowl. 2. Beat in the eg
                                 <span class="n">max_length</span><span class="o">=</span><span class="n">MAXLEN</span><span class="p">,</span>
                                 <span class="n">top_k</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>                                 
                                 <span class="n">top_p</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>        
-                                <span class="n">temperature</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                                <span class="n">temperature</span><span class="o">=</span><span class="n">TEMPERATURE</span><span class="p">,</span>
                                 <span class="n">repetition_penalty</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
                                 <span class="n">num_return_sequences</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
   <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample_output</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_outputs</span><span class="p">):</span>
@@ -13783,300 +14295,7 @@ Instructions: 1. Combine the first four ingredients in a bowl. 2. Beat in the eg
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="n">validation_df</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[35]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-
-  <div id="df-35ef26eb-197f-433d-8c92-a7718d520b25">
-    <div class="colab-df-container">
-      <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>truth</th>
-      <th>prediction</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Instructions: 1. Preheat the oven to 350 F. Bu...</td>
-      <td>Instructions: 1. Bring a pot of lightly salted...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Instructions: 1. Preheat the oven to 350 F. Bu...</td>
-      <td>Instructions: 1. Preheat the oven to 350 degre...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Instructions: 1. Preheat the oven to 350 F. Bu...</td>
-      <td>Instructions: 1. Bring 6 quarts water to a boi...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Instructions: 1. Cook macaroni according to pa...</td>
-      <td>Instructions: 1. Cook macaroni in salted water...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Instructions: 1. Cook macaroni according to pa...</td>
-      <td>Instructions: 1. Combine macaroni, cheese, and...</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Instructions: 1. Cook macaroni according to pa...</td>
-      <td>Instructions: 1. Cook macaroni in boiling, sal...</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Instructions: 1. Add the tomatoes to a food pr...</td>
-      <td>Instructions: 1. Arrange the tomatoes on an ov...</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>Instructions: 1. Add the tomatoes to a food pr...</td>
-      <td>Instructions: 1. Combine tomato, 2 tablespoons...</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>Instructions: 1. Add the tomatoes to a food pr...</td>
-      <td>Instructions: 1. Put the tomatoes on a cutting...</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>Instructions: 1. Preheat oven to 350 degrees F...</td>
-      <td>Instructions: 1. Bring milk, water and butter ...</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>Instructions: 1. Preheat oven to 350 degrees F...</td>
-      <td>Instructions: 1. Melt butter. 2. Add milk and ...</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>Instructions: 1. Preheat oven to 350 degrees F...</td>
-      <td>Instructions: 1. Add all ingredients to a 1 ga...</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>Instructions: 1. Dissolve Jello in boiling wat...</td>
-      <td>Instructions: 1. Mix watermelon and gelatin an...</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>Instructions: 1. Dissolve Jello in boiling wat...</td>
-      <td>Instructions: 1. Mix gelatin and water in bowl...</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>Instructions: 1. Dissolve Jello in boiling wat...</td>
-      <td>Instructions: 1. Mix the gelatin with the cold...</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>Instructions: 1. In a large skillet, toast the...</td>
-      <td>Instructions: 1. Preheat oven to 350F. 2. Mix ...</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>Instructions: 1. In a large skillet, toast the...</td>
-      <td>Instructions: 1. Preheat the oven to 375 degre...</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>Instructions: 1. In a large skillet, toast the...</td>
-      <td>Instructions: 1. Mix the soy sauce, cornstarch...</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>Instructions: 1. Pierce the skin of the chicke...</td>
-      <td>Instructions: 1. Place the thighs in a plastic...</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>Instructions: 1. Pierce the skin of the chicke...</td>
-      <td>Instructions: 1. Preheat the oven at 150F/220C...</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>Instructions: 1. Pierce the skin of the chicke...</td>
-      <td>Instructions: 1. Heat kombu tea in a microwave...</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>Instructions: 1. Put ingredients in a buttered...</td>
-      <td>Instructions: 1. Prepare cake batter according...</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>Instructions: 1. Put ingredients in a buttered...</td>
-      <td>Instructions: 1. Cook rhubarb in boiling water...</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>Instructions: 1. Put ingredients in a buttered...</td>
-      <td>Instructions: 1. Heat oven to 350 degrees F. 2...</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>Instructions: 1. Layer all ingredients in a se...</td>
-      <td>Instructions: 1. Place the yogurt in a food pr...</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>Instructions: 1. Layer all ingredients in a se...</td>
-      <td>Instructions: 1. Combine the yogurt, strawberr...</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>Instructions: 1. Layer all ingredients in a se...</td>
-      <td>Instructions: 1. Place all of the ingredients ...</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>Instructions: 1. Sift dry ingredients. 2. beat...</td>
-      <td>Instructions: 1. Preheat oven to 350F 2. Mix f...</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>Instructions: 1. Sift dry ingredients. 2. beat...</td>
-      <td>Instructions: 1. Mix flour, cinnamon, baking s...</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>Instructions: 1. Sift dry ingredients. 2. beat...</td>
-      <td>Instructions: 1. Combine dry ingredients. 2. I...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-35ef26eb-197f-433d-8c92-a7718d520b25')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-        
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M0 0h24v24H0V0z" fill="none"/>
-    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
-  </svg>
-      </button>
-      
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-      <script>
-        const buttonEl =
-          document.querySelector('#df-35ef26eb-197f-433d-8c92-a7718d520b25 button.colab-df-convert');
-        buttonEl.style.display =
-          google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-        async function convertToInteractive(key) {
-          const element = document.querySelector('#df-35ef26eb-197f-433d-8c92-a7718d520b25');
-          const dataTable =
-            await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                     [key], {});
-          if (!dataTable) return;
-
-          const docLinkHtml = 'Like what you see? Visit the ' +
-            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-            + ' to learn more about interactive tables.';
-          element.innerHTML = '';
-          dataTable['output_type'] = 'display_data';
-          await google.colab.output.renderOutput(dataTable, element);
-          const docLink = document.createElement('div');
-          docLink.innerHTML = docLinkHtml;
-          element.appendChild(docLink);
-        }
-      </script>
-    </div>
-  </div>
-  
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Evaluation">Evaluation<a class="anchor-link" href="#Evaluation">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">bleurt</span> <span class="kn">import</span> <span class="n">score</span>
@@ -14128,7 +14347,7 @@ INFO:tensorflow:BLEURT initialized.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-python"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -14144,7 +14363,7 @@ INFO:tensorflow:BLEURT initialized.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[37]:</div>
+    <div class="prompt output_prompt">Out[&nbsp;]:</div>
 
 
 
@@ -14293,11 +14512,53 @@ INFO:tensorflow:BLEURT initialized.
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="mi">200</span><span class="p">:</span><span class="mi">300</span><span class="p">]</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">SAVE_DATA_DIR</span> <span class="o">+</span> <span class="s1">&#39;sample_data.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-32-49b2d78dee2d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>sample <span class="ansi-blue-fg">=</span> all_data<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">200</span><span class="ansi-blue-fg">:</span><span class="ansi-cyan-fg">300</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> sample<span class="ansi-blue-fg">.</span>to_csv<span class="ansi-blue-fg">(</span>SAVE_DATA_DIR <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">&#39;sample_data.csv&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;all_data&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
     </div>
   </div>
 </body>
 
  
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"a88bb993662a4160be326586fce04624": {"model_module": "@jupyter-widgets/controls", "model_name": "HBoxModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_fae82e22982645b0a85fbad0fc6bf532", "IPY_MODEL_19d53276a2c74ca0b4c895a22fa87bcb", "IPY_MODEL_b5169b4629584c3d9cc70b7ffdce48bf"], "layout": "IPY_MODEL_7db637b057c44096b827762bcb5084cc"}}, "fae82e22982645b0a85fbad0fc6bf532": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_5eddc06f3abc434589c09ed4bcac511b", "placeholder": "\u200b", "style": "IPY_MODEL_37c5eddae1f54b76b2101b816811a0b9", "value": "Downloading: 100%"}}, "19d53276a2c74ca0b4c895a22fa87bcb": {"model_module": "@jupyter-widgets/controls", "model_name": "FloatProgressModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_2de54ae6fc8a42fba38f246aac9c8101", "max": 665, "min": 0, "orientation": "horizontal", "style": "IPY_MODEL_c0c3546501874edb81d02bda8f62f975", "value": 665}}, "b5169b4629584c3d9cc70b7ffdce48bf": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_7e65f58fd77a4aef85b8b6ec1958dffc", "placeholder": "\u200b", "style": "IPY_MODEL_63b8ca3f7aa348cbaf34fecbb1da5da5", "value": " 665/665 [00:00&lt;00:00, 18.0kB/s]"}}, "7db637b057c44096b827762bcb5084cc": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "5eddc06f3abc434589c09ed4bcac511b": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "37c5eddae1f54b76b2101b816811a0b9": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "2de54ae6fc8a42fba38f246aac9c8101": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c0c3546501874edb81d02bda8f62f975": {"model_module": "@jupyter-widgets/controls", "model_name": "ProgressStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "7e65f58fd77a4aef85b8b6ec1958dffc": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "63b8ca3f7aa348cbaf34fecbb1da5da5": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "b350b94ef5304a7bb4f4c393707c6b87": {"model_module": "@jupyter-widgets/controls", "model_name": "HBoxModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_e5788508d69342e4b6fe60387396ed56", "IPY_MODEL_ddb277eeb6974e699b2bfe0dd969c8ee", "IPY_MODEL_aa8cb9a9e2ab4f68b0e09ae9421f00c1"], "layout": "IPY_MODEL_6cbab07ff03246208e931eb6ddd425ff"}}, "e5788508d69342e4b6fe60387396ed56": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_4f1033a34b704fa1b3dc2c9f55c6fa6b", "placeholder": "\u200b", "style": "IPY_MODEL_604e8498c0a24ed98ce7d2f602970c5c", "value": "Downloading: 100%"}}, "ddb277eeb6974e699b2bfe0dd969c8ee": {"model_module": "@jupyter-widgets/controls", "model_name": "FloatProgressModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_cd3a5483ac6b4fa88aba375161b6dc60", "max": 1042301, "min": 0, "orientation": "horizontal", "style": "IPY_MODEL_625f1dffbabc4382a98332163453a302", "value": 1042301}}, "aa8cb9a9e2ab4f68b0e09ae9421f00c1": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_1bc8dd7943384a168143c10574984204", "placeholder": "\u200b", "style": "IPY_MODEL_739ac3cd5f6046ca981419cde066d5cb", "value": " 0.99M/0.99M [00:00&lt;00:00, 2.68MB/s]"}}, "6cbab07ff03246208e931eb6ddd425ff": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "4f1033a34b704fa1b3dc2c9f55c6fa6b": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "604e8498c0a24ed98ce7d2f602970c5c": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "cd3a5483ac6b4fa88aba375161b6dc60": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "625f1dffbabc4382a98332163453a302": {"model_module": "@jupyter-widgets/controls", "model_name": "ProgressStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "1bc8dd7943384a168143c10574984204": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "739ac3cd5f6046ca981419cde066d5cb": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "97f7cf610c204f15b20c1a9c718c221e": {"model_module": "@jupyter-widgets/controls", "model_name": "HBoxModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_e537c3d3f6d94aeeb1b3538792739cf4", "IPY_MODEL_d305ab9786664f6a9835e54dfd9dade4", "IPY_MODEL_99be29b164ca48fd8811aaaca93916e1"], "layout": "IPY_MODEL_f8920039075849d2b249f70db115913f"}}, "e537c3d3f6d94aeeb1b3538792739cf4": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_90cc3226d23543a5bd1de2d016251180", "placeholder": "\u200b", "style": "IPY_MODEL_813852f39426421c94fc2dee0f9e586b", "value": "Downloading: 100%"}}, "d305ab9786664f6a9835e54dfd9dade4": {"model_module": "@jupyter-widgets/controls", "model_name": "FloatProgressModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_3b0d404c30774a35923daf7e6bf4a200", "max": 456318, "min": 0, "orientation": "horizontal", "style": "IPY_MODEL_ee4af10ece7e4b94aebe2c7cb9b6eee7", "value": 456318}}, "99be29b164ca48fd8811aaaca93916e1": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_e1a84cd03b3342cea3ab60638418fb7d", "placeholder": "\u200b", "style": "IPY_MODEL_df94e5597cfa462ca8f9acf60ab9d704", "value": " 446k/446k [00:00&lt;00:00, 773kB/s]"}}, "f8920039075849d2b249f70db115913f": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "90cc3226d23543a5bd1de2d016251180": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "813852f39426421c94fc2dee0f9e586b": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "3b0d404c30774a35923daf7e6bf4a200": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "ee4af10ece7e4b94aebe2c7cb9b6eee7": {"model_module": "@jupyter-widgets/controls", "model_name": "ProgressStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "e1a84cd03b3342cea3ab60638418fb7d": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "df94e5597cfa462ca8f9acf60ab9d704": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "5387611220e64f6ea5510c1ba4f6859f": {"model_module": "@jupyter-widgets/controls", "model_name": "HBoxModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_ba118c22658d476ba70bfd683b8b7677", "IPY_MODEL_009ff29b36fa4933ac9754e4bc15e827", "IPY_MODEL_ce1039b70277423bbc8a48a50e451e19"], "layout": "IPY_MODEL_563b565fe80c4495be7be5c6ad058f6a"}}, "ba118c22658d476ba70bfd683b8b7677": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_0d5cba2b824747e1926b26bcda228c80", "placeholder": "\u200b", "style": "IPY_MODEL_9a31b36147c6434ea6033f989748db7a", "value": "Downloading: 100%"}}, "009ff29b36fa4933ac9754e4bc15e827": {"model_module": "@jupyter-widgets/controls", "model_name": "FloatProgressModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_b16122b6c59c4adab8dbcd0c6ba889f2", "max": 1355256, "min": 0, "orientation": "horizontal", "style": "IPY_MODEL_8bc945ac0b9c4a1ab3d1028cdd629f6c", "value": 1355256}}, "ce1039b70277423bbc8a48a50e451e19": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_a59568140ee94159affa847677ad4359", "placeholder": "\u200b", "style": "IPY_MODEL_239a51a0194044809adf8bd0a9166e59", "value": " 1.29M/1.29M [00:00&lt;00:00, 2.59MB/s]"}}, "563b565fe80c4495be7be5c6ad058f6a": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "0d5cba2b824747e1926b26bcda228c80": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9a31b36147c6434ea6033f989748db7a": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "b16122b6c59c4adab8dbcd0c6ba889f2": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "8bc945ac0b9c4a1ab3d1028cdd629f6c": {"model_module": "@jupyter-widgets/controls", "model_name": "ProgressStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "a59568140ee94159affa847677ad4359": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "239a51a0194044809adf8bd0a9166e59": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "c5938947e42c4a808f9aff9a8ed3c6aa": {"model_module": "@jupyter-widgets/controls", "model_name": "HBoxModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_67f11a52459347588b9bd9016ac9959c", "IPY_MODEL_fa49d7fc6d5c400f85dc452e9413c963", "IPY_MODEL_1a12c24b97514069bb104be5b265fe81"], "layout": "IPY_MODEL_bb48c99f079f4a318b4223c123ea965a"}}, "67f11a52459347588b9bd9016ac9959c": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_3b9073782326415d927b646917bd7042", "placeholder": "\u200b", "style": "IPY_MODEL_8c51cce11aa24d14a8ce6707a6a80662", "value": "Downloading: 100%"}}, "fa49d7fc6d5c400f85dc452e9413c963": {"model_module": "@jupyter-widgets/controls", "model_name": "FloatProgressModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_a89c4c595b4848ebbf7736724ca00d5b", "max": 548118077, "min": 0, "orientation": "horizontal", "style": "IPY_MODEL_fc419cd534ef46ee8a2a944433ba09ee", "value": 548118077}}, "1a12c24b97514069bb104be5b265fe81": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_fe6058b71f424e7c8f8e35758edae664", "placeholder": "\u200b", "style": "IPY_MODEL_b42b7727d8ec457abf7f76565311ea12", "value": " 523M/523M [00:13&lt;00:00, 47.9MB/s]"}}, "bb48c99f079f4a318b4223c123ea965a": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "3b9073782326415d927b646917bd7042": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "8c51cce11aa24d14a8ce6707a6a80662": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "a89c4c595b4848ebbf7736724ca00d5b": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "fc419cd534ef46ee8a2a944433ba09ee": {"model_module": "@jupyter-widgets/controls", "model_name": "ProgressStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "fe6058b71f424e7c8f8e35758edae664": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "b42b7727d8ec457abf7f76565311ea12": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}}
+</script>
 
 
 </html>
