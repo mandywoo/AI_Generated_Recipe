@@ -1,6 +1,6 @@
 # AI_Generated_Recipe
 
-NOTE: We are using torch with Cuda in our notebook, so please make sure your environment has access to GPU !
+*NOTE: We are using torch with Cuda in our notebook, so please make sure your environment has access to GPU !*
 
 ## Files Required to Run Notebook:
 - project.ipynb
