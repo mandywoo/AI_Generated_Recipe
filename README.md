@@ -17,6 +17,8 @@ NOTE: We are using torch with Cuda in our notebook, so please make sure your env
 
 
 ## Notebook Instructions:
+*Note: It is recommended to run this notebook in Google Colab to avoid any sort of dependency issues. In which case please place/upload all required files listed above in the same directory in your google drive.*
+
 1. Run **all** the blocks under **"Set Up"**, this includes installing the dependencies at the top. Installing the required dependencies can take around ~1.5 min.
 2. **In "Load Data" section, IF you are using your LOCAL ENVIRONMENT**: if you downloaded all the files in the same structure as it is in github, then you DO NOT need to update the file paths in the first block of "Load Data." Else, please update the paths according to the comments in the notebook. And **skip** the second block under "Load Data."
 3. **In "Load Data" section, IF you are using GOOGLE COLAB**: please run the mount to mount your Google Drive by running the second block under "Load Data". You will need to update your file paths accordingly.
